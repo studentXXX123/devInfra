@@ -1,0 +1,91 @@
+jobs:
+# Replace params / app_name with your heroku app name
+- name: build
+  plan:
+    - aggregate:
+      - get: restapi-git-master
+        trigger: true
+      - get: terraform-git-master
+    - task: mvn_build
+      file: terraform-git-master/concourse/java/task.yml
+      input_mapping: {source: restapi-git-master}
+    - put: docker-image-app
+      params:
+        build: docker
+
+- name: deploy-ci
+  plan:
+  - aggregate:
+    - get: terraform-git-master
+    - get: docker-image-app
+      passed: [build]
+      trigger: true
+  - task: push_to_heroku
+    file: terraform-git-master/concourse/docker/task.yml
+    params:
+      app_name: ((heroku_app_name))-app-ci
+      heroku_email: ((heroku_email))
+      heroku_api_token: ((heroku_api_key))
+
+
+- name: infrastructure
+  plan:
+  - aggregate:
+    - get: terraform-git-master
+  - task: apply
+    file: terraform-git-master/concourse/terraform/task.yml
+    input_mapping: {source: terraform-git-master}
+    params:
+      github_token: ((github_token))
+      heroku_api_key: ((heroku_api_key))
+      statuscake_api_key: ((statuscake_api_key))
+      command: apply
+      directories: |
+        terraform
+  - put: terraform-git-master
+    params:
+      repository: with-state
+      rebase: true
+
+- name: heroku-set-config-vars
+  plan:
+  - aggregate:
+    - get: terraform-git-master
+      passed: [infrastructure]
+      trigger: true
+  - task: push_to_heroku
+    file: terraform-git-master/concourse/heroku/task.yml
+    input_mapping: {source: terraform-git-master}
+    params:
+      app_name: ((heroku_app_name))
+      heroku_email: ((heroku_email))
+      heroku_api_token: ((heroku_api_key))
+      heroku_graphite_ci: ((heroku_graphite_ci))
+      heroku_graphite_staging: ((heroku_graphite_staging))
+      heroku_graphite_production: ((heroku_graphite_production))
+
+
+resources:
+
+# Replace with your own repository
+- name: restapi-git-master
+  type: git
+  source:
+    uri: XXX
+    branch: master
+    private_key: ((deploy_key_app))
+
+# Replace with your own repository
+- name: terraform-git-master
+  type: git
+  source:
+    uri: XXX
+    branch: master
+    private_key: ((deploy_key_infra))
+
+- name: docker-image-app
+  type: docker-image
+  source:
+    repository: registry.heroku.com/((heroku_app_name))-app-ci/web
+    username: ((heroku_email))
+    password: ((heroku_api_key))

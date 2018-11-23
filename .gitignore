@@ -1,0 +1,6 @@
+credentials.yml
+.terraform
+notater
+.idea
+*.DS_Store
+
