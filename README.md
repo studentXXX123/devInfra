@@ -115,7 +115,7 @@ Follow all these steps step by step
 		- tests
 		- coverage-report
 		- smoke-tests
-		- slack notification when build fail og success
+		- slack notification when build fail or success
 	- Use AWS instead of Heroku
 
 10. References
