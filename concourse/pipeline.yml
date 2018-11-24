@@ -67,7 +67,7 @@ jobs:
 
 resources:
 
-# Replace with your own repository
+# Replace with your own application repository
 - name: restapi-git-master
   type: git
   source:
@@ -75,7 +75,7 @@ resources:
     branch: master
     private_key: ((deploy_key_app))
 
-# Replace with your own repository
+# Replace with your own infrastructure repository
 - name: terraform-git-master
   type: git
   source:
