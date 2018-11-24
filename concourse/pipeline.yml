@@ -17,7 +17,7 @@ jobs:
   plan:
   - aggregate:
     - get: terraform-git-master
-    - get: docker-image-app
+    - get: docker-image-ci-app
       passed: [build]
       trigger: true
   - task: push_to_heroku
