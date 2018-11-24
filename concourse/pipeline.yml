@@ -9,11 +9,11 @@ jobs:
     - task: mvn_build
       file: terraform-git-master/concourse/java/task.yml
       input_mapping: {source: restapi-git-master}
-    - put: docker-image-app
+    - put: docker-image-ci-app
       params:
         build: docker
 
-- name: deploy-ci
+- name: deploy-ci-app
   plan:
   - aggregate:
     - get: terraform-git-master
@@ -83,7 +83,7 @@ resources:
     branch: master
     private_key: ((deploy_key_infra))
 
-- name: docker-image-app
+- name: docker-image-ci-app
   type: docker-image
   source:
     repository: registry.heroku.com/((heroku_app_name))-app-ci/web
