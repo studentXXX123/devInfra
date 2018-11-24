@@ -88,7 +88,7 @@ Follow all these steps step by step
 5. 
 |HTTP| Endpoint | Surveillance, Alert and Metrics  |
 |--|--|--|
-| GET by charactername | `/gotrest/api/gameofthrones?characterName={string}%20{string}&limit=1&offset=0` (if you want to add more string just add `%20{string}`  | Counter & Timer
+| GET by charactername | `/gotrest/api/gameofthrones?characterName={characterName}&limit=1&offset=0` e.g: Arya Stark  | Counter & Timer
 | GET by search | /gotrest/api/gameofthrones?limit={int}&offset={int}&search={search} | Counter & Timer
 | GET | /gotrest/api/gameofthrones/{id} | Meter
 | DELETE | /gotrest/api/gameofthrones/{id} | Meter
