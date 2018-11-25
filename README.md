@@ -83,17 +83,17 @@ Follow all these steps step by step
 			- When they are added, run this command in terminal again from infrastructure folder `fly -t devExam sp -c concourse/pipeline.yml -p ci+terraform -l credentials.yml`
 			- go back to broswer, click on `heroku-set-config-vars` and trigger the build
 			- After all these steps are done, you can now open the app on Heroku from `ci` app. It will not show anything because this is a rest api. But you can try all the following url below by adding it  after Heroku url as shown below.
-			
+			- You can also now try make any changes on application and do git commit, you will see that `build` job get triggered automatically and notice how fast it will build because of maven cache dependencies
 
 5. 
 |HTTP| Endpoint | Surveillance, Alert and Metrics  |
 |--|--|--|
 | GET by charactername | `/gotrest/api/gameofthrones?characterName={characterName}&limit=1&offset=0` e.g: Arya Stark  | Counter & Timer
-| GET by search | /gotrest/api/gameofthrones?limit={int}&offset={int}&search={search} | Counter & Timer
-| GET | /gotrest/api/gameofthrones/{id} | Meter
-| DELETE | /gotrest/api/gameofthrones/{id} | Meter
-| PUT | make a get request, use the fields and try on Postman | Meter
-| POST | make a get request, use the fields and try on Postman | Meter
+| GET by search | `/gotrest/api/gameofthrones?limit={int}&offset={int}&search={search}` | Counter & Timer
+| GET by id | `/gotrest/api/gameofthrones/{id}` | Meter
+| DELETE by id | `/gotrest/api/gameofthrones/{id}` try on Postman | Meter
+| PUT by id | `/gotrest/api/gameofthrones/{id}`make a get request, use the fields and try PUT method on Postman | Meter
+| POST create new character | `/gotrest/api/gameofthrones`make a get request, use the fields and try POST method on Postman | Meter
 
 
 6. Tasks done
