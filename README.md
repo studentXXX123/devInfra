@@ -119,8 +119,8 @@ Follow all these steps step by step
 	- Use AWS instead of Heroku
 
 10. References
-[Metrics Tutorial](https://metrics.dropwizard.io/4.0.0/manual/core.html#timers)
-[Maven Dependencies Caching](http://www.java-allandsundry.com/2017/08/concourse-caching-for-java-maven-and.html)
-[Shell Script Git Diff](https://github.com/skratchdot/Git-Diff-Build-Script)
+- [Metrics Tutorial](https://metrics.dropwizard.io/4.0.0/manual/core.html#timers)
+- [Maven Dependencies Caching](http://www.java-allandsundry.com/2017/08/concourse-caching-for-java-maven-and.html)
+- [Shell Script Git Diff](https://github.com/skratchdot/Git-Diff-Build-Script)
 
 		
